@@ -14,10 +14,10 @@ const ProductList = asyncHandler(async (req, res) => {
     }
 
     //Validation For Unique Product Id
-    const existingProduct = await Product.findOne({ product_id: product_id });
-    if (existingProduct) {
-        throw new ApiError(400, "product id must be unique...");
-    }
+    // const existingProduct = await Product.findOne({ product_id: product_id });
+    // if (existingProduct) {
+    //     throw new ApiError(400, "product id must be unique...");
+    // }
     const imageLocalPath = req.files?.image[0]?.path
     if (!imageLocalPath) {
         throw new ApiError(400, "image is required...")
@@ -27,8 +27,8 @@ const ProductList = asyncHandler(async (req, res) => {
     if (!image) {
         throw new ApiError(400, "image field is required...")
     }
-
-    const product = Product.create({
+    console.log(image);
+    const product = await Product.create({
         category,
         price,
         description,
